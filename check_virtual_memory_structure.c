@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include "libkdump.h"
 
+#define RED     "\033[31m"
+#define YELLOW  "\033[33m"
+#define GREEN   "\033[32m"
+#define BLUE    "\033[34;1m"
+#define RESET   "\033[0m"
+
 int data = 5555;
 int bss = 0;
 int bss2;
@@ -9,6 +15,10 @@ int bss2;
 void text(){ 1+1 == 2; }
 
 int main(int argc, char * argv[]){
+    if (argc < 2) {
+        fputs(RED "Please pass some arguments...\n" RESET , stderr);
+        return 1;
+    }
     static char * data2 = "twice";
     int stack = 78;
     int stack2 = 23;
@@ -16,19 +26,21 @@ int main(int argc, char * argv[]){
     int * heap2 = (int *)malloc(sizeof(int));
     char * environment_variable = getenv("PATH");
 
-    printf("Let's check address of each memory section from BOTTOM to TOP.\n");
-    printf("Text  section : %p\n", text);
-    printf("Data  section : %p\n", &data);
-    printf("              : %p\n", &data2);
-    printf("BSS   section : %p\n", &bss);
-    printf("              : %p\n", &bss2);
-    printf("Heap  section : %p\n", heap);
-    printf("              : %p\n", heap2);
-    printf("Stack section : %p\n", &stack);
-    printf("              : %p\n", &stack2);
-    printf("Main argument : %p\n", argv);
-    printf("Environment   : %p\n", environment_variable);
-    printf("All of these are Virtual Address\n\n");
+    printf(YELLOW "Let's check address of each memory section from BOTTOM to TOP.\n" RESET);
+    printf( GREEN "Text  section " RESET " : " BLUE "%p\n", text);
+    printf( GREEN "Data  section " RESET " : " BLUE "%p\n", &data);
+    printf( GREEN "              " RESET " : " BLUE "%p\n", &data2);
+    printf( GREEN "BSS   section " RESET " : " BLUE "%p\n", &bss);
+    printf( GREEN "              " RESET " : " BLUE "%p\n", &bss2);
+    printf( GREEN "Heap  section " RESET " : " BLUE "%p\n", heap);
+    printf( GREEN "              " RESET " : " BLUE "%p\n", heap2);
+    printf( GREEN "Stack section " RESET " : " BLUE "%p\n", &stack);
+    printf( GREEN "              " RESET " : " BLUE "%p\n", &stack2);
+    printf( GREEN "Main arg-argc " RESET " : " BLUE "%p\n", &argc);
+    printf( GREEN "     arg-argv " RESET " : " BLUE "%p\n", argv);
+    printf( GREEN "     argv[1]  " RESET " : " BLUE "%p\n", argv[1]);
+    printf( GREEN "Environment   " RESET " : " BLUE "%p\n", environment_variable);
+    printf(RESET "All of these are Virtual Address\n\n");
 
     printf("Let's check physical address(Real Address)!\n");
     void * physical_text = libkdump_virt_to_phys((size_t)text);
