@@ -6,7 +6,11 @@ BINARIES := $(SOURCES:%.c=%)
 
 all: $(BINARIES)
 
-libkdump/libkdump.a:  libkdump/libkdump.c
+meltdown/libkdump/libkdump.a:  libkdump/libkdump.c
+	if [[ ! -d meltdown ]]; then
+		git clone https://github.com/IAIK/meltdown
+		make -C meltdown
+	fi
 	make -C libkdump
 
 %: %.c libkdump/libkdump.a
@@ -14,4 +18,4 @@ libkdump/libkdump.a:  libkdump/libkdump.c
 	
 clean:
 	rm -f *.o $(BINARIES)
-	make clean -C libkdump
+	make clean -C meltdown
