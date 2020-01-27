@@ -31,3 +31,7 @@ clean:
 	rm -f *.o $(TEST1) $(TEST2)
 	make clean -C libkdump
 
+purge:
+	rm -r libkdump
+	rm hack_virt_test*
+

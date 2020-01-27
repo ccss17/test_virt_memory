@@ -16,7 +16,8 @@ Checking the memory structure of the virtual memory system and checking each phy
 sudo ./check_virtual_memory_structure HELLO WOLRD
 ```
 
-![check_virtual_memory_structure](https://user-images.githubusercontent.com/16812446/72776196-a9af9f80-3c54-11ea-8318-44abf05e567b.PNG)
+![check_virtual_memory_structure](https://user-images.githubusercontent.com/16812446/73173290-623f7c80-4148-11ea-8b84-1caac1f4a712.png)
+
 
 ## Test 2
 
